@@ -1,48 +1,35 @@
 # ---------- Base libraries -------------------------------------------------------------------------------------------
-# import os
-# from os import PathLike
-# import sys
+import os
 from typing import List
 import tempfile
 import logging
 
-# import subprocess
-import platform
+# import platform
 from datetime import datetime
-from pathlib import Path
-
+#from pathlib import Path
 
 from CoreCodes.Wav_prediction import InfluenzaClassifier
 
-# import shutil
-import pyqtgraph as pg
-
-# import time
+# ---------- Numerical, Visual packages--------------------------------------------------------------------------------
 from PIL import Image
-
-# ---------- Numerical Visual packages---------------------------------------------------------------------------------
 import numpy as np
+import pyqtgraph as pg
 
 # ---------- GUI libraries --------------------------------------------------------------------------------------------
 from PySide6.QtWidgets import QMainWindow, QWidget, QFileDialog, QMessageBox
-
-# from PySide6.QtGui import QKeySequence, QShortcut, QColor
 from PySide6.QtCore import Qt  # pQModelIndex, QDir,
+# from PySide6.QtGui import QKeySequence, QShortcut, QColor
+from Custom_UIs.UI_Mainwindow import Ui_MainWindow      # ---------- UI from qt-designer ------------------------------
 
-# ---------- Custom libs ----------------------------------------------------------------------------------------------
-from Custom_UIs.UI_Mainwindow import Ui_MainWindow
-
-# from Custom_Libs.Lib_DataDirTree import DataDirTree
-
+# =====================================================================================================================
+# pyqtgraph config
 pg.setConfigOption("background", "w")
 pg.setConfigOption("foreground", "k")
 
-
-system_str = platform.system()
 logging.basicConfig(
-    filename=Path(tempfile.gettempdir()) / datetime.now().strftime("%Y%m%d_%H%M%S.log"),
+    filename=os.path.join(tempfile.gettempdir(), datetime.now().strftime("Influenza_gui_%Y%m%d_%H%M%S.log")),
     format="%(asctime)s %(levelname)-8s %(message)s",
-    level=logging.DEBUG,
+    level=logging.INFO,
 )
 
 
@@ -61,7 +48,7 @@ class TheMainWindow(QMainWindow):
         # self.ui.pb_process.clicked.connect(self.call_process)
 
         self.inf_classifier = InfluenzaClassifier("./CoreCodes/best_checkpoint_2_class_masked_5_17.model")
-
+        logging.info("TheMainWindow: Done")
 
 
     def callback_pb_load_audio_file(self) -> None:
@@ -73,11 +60,15 @@ class TheMainWindow(QMainWindow):
         if dlg.exec_():
             selected_file_path = dlg.selectedFiles()[0]
             self.load_audio_file(selected_file_path)
+            logging.info(f"callback_pb_load_audio_file: {selected_file_path=}")
+        else:
+            logging.info("callback_pb_load_audio_file: Canceled Dialog")
 
     def load_audio_file(self, file_path_to_wav: str) -> None:
         # load {file_path_to_wav} generate image.
         # save generated image into {self.inf_classifier.output_path_spectrogram_img}
         self.inf_classifier.generate_spectrogram_from_wav_file(file_path_to_wav, "/tmp/")
+        logging.info("load_audio_file: generate_spectrogram_from_wav_file")
 
         self.ui.l_loaded_file_rate.setNum(self.inf_classifier.sample_rate)
         self.ui.l_loaded_file_dur.setNum(self.inf_classifier.audio.shape[0] / self.inf_classifier.sample_rate)
@@ -93,6 +84,7 @@ class TheMainWindow(QMainWindow):
             self.inf_classifier.audio,
             pen=pg.mkPen("k", width=1, style=Qt.PenStyle.SolidLine),
         )
+        logging.info("update_graph_on_ui: plotted wav graph")
 
         im = Image.open(self.inf_classifier.output_path_spectrogram_img)
         if im.mode == "RGBA":
@@ -101,6 +93,7 @@ class TheMainWindow(QMainWindow):
         # update graph2 (image)
         self.ui.pyqt_graph_audio_2.clear()
         self.ui.pyqt_graph_audio_2.setImage(img=np.array(im), levels=(0, 255), axes={"x": 1, "y": 0, "c": 2})
+        logging.info("update_graph_on_ui: showed spectrograph image")
 
         self.predict_and_then_update_result_ui()
 
@@ -110,6 +103,7 @@ class TheMainWindow(QMainWindow):
         dlg.setText("Start after pressing OK")
         dlg.exec()
 
+        logging.info("callback_pb_start_record: Starting Record")
 
         file_path_wav_output = self.inf_classifier.record_audio(
             output_directory="/tmp",
@@ -118,12 +112,12 @@ class TheMainWindow(QMainWindow):
             sample_rate=44100,
             channels=1,
         )
+        logging.info("callback_pb_start_record: Finishing Record")
 
         dlg = QMessageBox(self)
         dlg.setWindowTitle("Record...")
         dlg.setText("Finshed")
         dlg.exec()
-        #self.ui.l_rec_state.setText(f"Record saved at {file_path_wav_output}")
 
         self.load_audio_file(file_path_wav_output)
         #self.predict_and_then_update_result_ui() already executed inside of  self.load_audio_file
@@ -134,10 +128,13 @@ class TheMainWindow(QMainWindow):
         self.pred_label, self.pred_confidence = self.inf_classifier.predict_image(
             self.inf_classifier.output_path_spectrogram_img,
         )
+        logging.info("predict_and_then_update_result_ui: predicted")
         self.ui.label_result.setText(self.pred_label)
         self.ui.label_result_confidence.setText(
             f"[{self.pred_confidence[0]:.2f}~{self.pred_confidence[1]:.2f}]"
         )
+        logging.info("predict_and_then_update_result_ui: Labels showed")
+
 
         dlg = QMessageBox(self)
         dlg.setWindowTitle("Result")
@@ -151,24 +148,26 @@ class TheMainWindow(QMainWindow):
         dlg.setFileMode(QFileDialog.FileMode.AnyFile)
         dlg.setNameFilters(["Other File (*)", "Model (*.model)"])
         dlg.selectNameFilter("Model (*.model)")
+        logging.info("callback_change_pretrained_data: File dialog start")
+        retval = dlg.exec_()
 
-        if dlg.exec_():
-            selected_file_path_for_model = dlg.selectedFiles()[0]
-            #self.load_audio_file(selected_file_path_for_model)
-            try:
-                self.inf_classifier.load_pre_trained_model(selected_file_path_for_model, True)
+        if not retval: # if pressed cancel
+            logging.info("callback_change_pretrained_data: File dialog CANCEL")
+            return
 
-                dlg = QMessageBox(self)
-                dlg.setWindowTitle("Success")
-                dlg.setText(
-                    f"Loaded new file at {selected_file_path_for_model}"
-                )
-                dlg.exec()
+        # file has selected
+        selected_file_path_for_model = dlg.selectedFiles()[0]
+        try:
+            self.inf_classifier.load_pre_trained_model(selected_file_path_for_model, True)
+            logging.info(f"callback_change_pretrained_data: OK {selected_file_path_for_model}")
+            dlg = QMessageBox(self)
+            dlg.setWindowTitle("Success")
+            dlg.setText(f"Loaded new file at {selected_file_path_for_model}")
+            dlg.exec()
 
-            except Exception:
-                dlg = QMessageBox(self)
-                dlg.setWindowTitle("Problem")
-                dlg.setText(
-                    f"Problem while loading {selected_file_path_for_model}"
-                )
-                dlg.exec()
+        except Exception:
+            logging.info(f"callback_change_pretrained_data: FAIL {selected_file_path_for_model}")
+            dlg = QMessageBox(self)
+            dlg.setWindowTitle("Problem")
+            dlg.setText(f"Problem while loading {selected_file_path_for_model}")
+            dlg.exec()
