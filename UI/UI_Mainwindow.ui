@@ -176,28 +176,22 @@
            <height>200</height>
           </size>
          </property>
-         <widget class="ImageView" name="pyqt_graph_audio_2" native="true">
-          <property name="geometry">
-           <rect>
-            <x>-10</x>
-            <y>10</y>
-            <width>540</width>
-            <height>223</height>
-           </rect>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-            <horstretch>0</horstretch>
-            <verstretch>200</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>400</width>
-            <height>200</height>
-           </size>
-          </property>
-         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="ImageView" name="pyqt_graph_audio_2" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>200</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>400</width>
+           <height>200</height>
+          </size>
+         </property>
         </widget>
        </item>
       </layout>
@@ -415,8 +409,6 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../QRCs/main_resource.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

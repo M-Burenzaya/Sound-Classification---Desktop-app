@@ -211,16 +211,18 @@ class Ui_MainWindow(object):
         )
         self.pyqt_graph_audio.setSizePolicy(sizePolicy)
         self.pyqt_graph_audio.setMinimumSize(QSize(400, 200))
-        self.pyqt_graph_audio_2 = ImageView(self.pyqt_graph_audio)
+
+        self.verticalLayout.addWidget(self.pyqt_graph_audio)
+
+        self.pyqt_graph_audio_2 = ImageView(self.groupBox_4)
         self.pyqt_graph_audio_2.setObjectName("pyqt_graph_audio_2")
-        self.pyqt_graph_audio_2.setGeometry(QRect(-10, 10, 540, 223))
         sizePolicy.setHeightForWidth(
             self.pyqt_graph_audio_2.sizePolicy().hasHeightForWidth()
         )
         self.pyqt_graph_audio_2.setSizePolicy(sizePolicy)
         self.pyqt_graph_audio_2.setMinimumSize(QSize(400, 200))
 
-        self.verticalLayout.addWidget(self.pyqt_graph_audio)
+        self.verticalLayout.addWidget(self.pyqt_graph_audio_2)
 
         self.gridLayout.addWidget(self.groupBox_4, 0, 1, 2, 1)
 
