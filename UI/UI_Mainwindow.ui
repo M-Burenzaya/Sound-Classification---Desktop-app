@@ -15,47 +15,56 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout" columnstretch="0,100,0">
-    <item row="0" column="2" rowspan="2">
-     <widget class="QGroupBox" name="groupBox_3">
+    <item row="0" column="0">
+     <widget class="QGroupBox" name="groupBox_2">
       <property name="title">
-       <string>Result</string>
+       <string>Input 1</string>
       </property>
-      <layout class="QFormLayout" name="formLayout">
+      <layout class="QFormLayout" name="formLayout_2">
        <item row="0" column="0">
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>Output Threshold</string>
+          <string>Load file </string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QDoubleSpinBox" name="sp_output_threshold">
-         <property name="value">
-          <double>80.000000000000000</double>
+        <widget class="QPushButton" name="pb_load_audio_file">
+         <property name="text">
+          <string>File</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_6">
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_7">
          <property name="text">
-          <string>Output</string>
+          <string>File duration (s)</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
-        <widget class="QLabel" name="label_result">
-         <property name="font">
-          <font>
-           <pointsize>28</pointsize>
-          </font>
-         </property>
+       <item row="1" column="1">
+        <widget class="QLabel" name="l_loaded_file_dur">
          <property name="text">
-          <string>TextLabel</string>
+          <string>...</string>
          </property>
         </widget>
        </item>
        <item row="2" column="0">
-        <spacer name="verticalSpacer_3">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>File Rate (1/s)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="l_loaded_file_rate">
+         <property name="text">
+          <string>...</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Orientation::Vertical</enum>
          </property>
@@ -66,54 +75,6 @@
           </size>
          </property>
         </spacer>
-       </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="QPushButton" name="pb_process">
-         <property name="text">
-          <string>Process Audio</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="0" column="1" rowspan="2">
-     <widget class="QGroupBox" name="groupBox_4">
-      <property name="title">
-       <string>Audio Graph</string>
-      </property>
-      <layout class="QFormLayout" name="formLayout_4">
-       <item row="0" column="0" colspan="2">
-        <widget class="PlotWidget" name="pyqt_graph_audio" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-           <horstretch>0</horstretch>
-           <verstretch>200</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>400</width>
-           <height>200</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="ImageView" name="pyqt_graph_audio_2" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-           <horstretch>0</horstretch>
-           <verstretch>200</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>400</width>
-           <height>200</height>
-          </size>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
@@ -202,56 +163,74 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QGroupBox" name="groupBox_2">
+    <item row="0" column="1" rowspan="2">
+     <widget class="QGroupBox" name="groupBox_4">
       <property name="title">
-       <string>Input 1</string>
+       <string>Audio Graph</string>
       </property>
-      <layout class="QFormLayout" name="formLayout_2">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Load file </string>
+      <layout class="QFormLayout" name="formLayout_4">
+       <item row="0" column="0" colspan="2">
+        <widget class="PlotWidget" name="pyqt_graph_audio" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>200</verstretch>
+          </sizepolicy>
          </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="pb_load_audio_file">
-         <property name="text">
-          <string>File</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>File duration (s)</string>
+         <property name="minimumSize">
+          <size>
+           <width>400</width>
+           <height>200</height>
+          </size>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLabel" name="l_loaded_file_dur">
-         <property name="text">
-          <string>...</string>
+        <widget class="ImageView" name="pyqt_graph_audio_2" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>200</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>400</width>
+           <height>200</height>
+          </size>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_9">
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="2" rowspan="2">
+     <widget class="QGroupBox" name="groupBox_3">
+      <property name="title">
+       <string>Result</string>
+      </property>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_6">
          <property name="text">
-          <string>File Rate (1/s)</string>
+          <string>Result</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="label_result">
+         <property name="font">
+          <font>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLabel" name="l_loaded_file_rate">
-         <property name="text">
-          <string>...</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <spacer name="verticalSpacer_2">
+        <spacer name="verticalSpacer_3">
          <property name="orientation">
           <enum>Qt::Orientation::Vertical</enum>
          </property>
@@ -263,12 +242,48 @@
          </property>
         </spacer>
        </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Result Confidence</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="label_result_confidence">
+         <property name="font">
+          <font>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1085</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <addaction name="actionChange_Pre_Trained_Model"/>
+   </widget>
+   <addaction name="menuOptions"/>
+  </widget>
   <action name="actionOpen_Directory">
    <property name="text">
     <string>Open Directory</string>
@@ -367,6 +382,11 @@
   <action name="action_tabs_show_tab3">
    <property name="text">
     <string>Spectrum-Reflectance Tab (Ctrl+3) or (Alt+3)</string>
+   </property>
+  </action>
+  <action name="actionChange_Pre_Trained_Model">
+   <property name="text">
+    <string>Change Pre-Trained Model</string>
    </property>
   </action>
  </widget>

@@ -2,6 +2,7 @@
 # import os
 # from os import PathLike
 # import sys
+from typing import List
 import tempfile
 import logging
 
@@ -15,6 +16,7 @@ from CoreCodes.Wav_prediction import InfluenzaClassifier
 
 # import shutil
 import pyqtgraph as pg
+
 # import time
 from PIL import Image
 
@@ -23,11 +25,13 @@ import numpy as np
 
 # ---------- GUI libraries --------------------------------------------------------------------------------------------
 from PySide6.QtWidgets import QMainWindow, QWidget, QFileDialog
+
 # from PySide6.QtGui import QKeySequence, QShortcut, QColor
 from PySide6.QtCore import Qt  # pQModelIndex, QDir,
 
 # ---------- Custom libs ----------------------------------------------------------------------------------------------
 from Custom_UIs.UI_Mainwindow import Ui_MainWindow
+
 # from Custom_Libs.Lib_DataDirTree import DataDirTree
 
 pg.setConfigOption("background", "w")
@@ -44,6 +48,8 @@ logging.basicConfig(
 
 class TheMainWindow(QMainWindow):
     inf_classifier: InfluenzaClassifier
+    pred_label: str
+    pred_confidence: List[float]
 
     def __init__(self, parent: QWidget | None = None) -> None:
         super(TheMainWindow, self).__init__(parent)
@@ -51,8 +57,11 @@ class TheMainWindow(QMainWindow):
         self.ui.setupUi(self)
         self.ui.pb_load_audio_file.clicked.connect(self.callback_pb_load_audio_file)
         self.ui.pb_start_record.clicked.connect(self.callback_pb_start_record)
+        # self.ui.pb_process.clicked.connect(self.call_process)
 
         self.inf_classifier = InfluenzaClassifier("./CoreCodes/best_checkpoint_2_class_masked_5_17.model")
+
+
 
     def callback_pb_load_audio_file(self) -> None:
         dlg = QFileDialog()
@@ -88,15 +97,11 @@ class TheMainWindow(QMainWindow):
         if im.mode == "RGBA":
             im = im.convert("RGB")
 
-
         # update graph2 (image)
         self.ui.pyqt_graph_audio_2.clear()
-        self.ui.pyqt_graph_audio_2.setImage(
-            img = np.array(im),
-            levels=(0, 255),
-            axes={"x":1, "y":0, "c":2}
-        )
+        self.ui.pyqt_graph_audio_2.setImage(img=np.array(im), levels=(0, 255), axes={"x": 1, "y": 0, "c": 2})
 
+        self.predict_and_then_update_result_ui()
 
     def callback_pb_start_record(self) -> None:
         self.ui.pb_start_record.setText("Recording")
@@ -112,4 +117,15 @@ class TheMainWindow(QMainWindow):
         self.ui.l_rec_state.setText(f"Record saved at {file_path_wav_output}")
 
         self.load_audio_file(file_path_wav_output)
+        self.predict_and_then_update_result_ui()
+
         self.ui.pb_start_record.setText("Start New Record")
+
+    def predict_and_then_update_result_ui(self) -> None:
+        self.pred_label, self.pred_confidence = self.inf_classifier.predict_image(
+            self.inf_classifier.output_path_spectrogram_img,
+        )
+        self.ui.label_result.setText(self.pred_label)
+        self.ui.label_result_confidence.setText(
+            f"[{self.pred_confidence[0]:.2f}~{self.pred_confidence[1]:.2f}]"
+        )

@@ -11,6 +11,7 @@
 from PySide6.QtCore import (
     QCoreApplication,
     QMetaObject,
+    QRect,
     QSize,
 )
 from PySide6.QtGui import (
@@ -24,6 +25,8 @@ from PySide6.QtWidgets import (
     QGroupBox,
     QLabel,
     QMainWindow,
+    QMenu,
+    QMenuBar,
     QPushButton,
     QSizePolicy,
     QSpacerItem,
@@ -82,81 +85,55 @@ class Ui_MainWindow(object):
         self.action_tabs_show_tab2.setObjectName("action_tabs_show_tab2")
         self.action_tabs_show_tab3 = QAction(MainWindow)
         self.action_tabs_show_tab3.setObjectName("action_tabs_show_tab3")
+        self.actionChange_Pre_Trained_Model = QAction(MainWindow)
+        self.actionChange_Pre_Trained_Model.setObjectName(
+            "actionChange_Pre_Trained_Model"
+        )
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
-        self.groupBox_3 = QGroupBox(self.centralwidget)
-        self.groupBox_3.setObjectName("groupBox_3")
-        self.formLayout = QFormLayout(self.groupBox_3)
-        self.formLayout.setObjectName("formLayout")
-        self.label = QLabel(self.groupBox_3)
-        self.label.setObjectName("label")
+        self.groupBox_2 = QGroupBox(self.centralwidget)
+        self.groupBox_2.setObjectName("groupBox_2")
+        self.formLayout_2 = QFormLayout(self.groupBox_2)
+        self.formLayout_2.setObjectName("formLayout_2")
+        self.label_2 = QLabel(self.groupBox_2)
+        self.label_2.setObjectName("label_2")
 
-        self.formLayout.setWidget(0, QFormLayout.LabelRole, self.label)
+        self.formLayout_2.setWidget(0, QFormLayout.LabelRole, self.label_2)
 
-        self.sp_output_threshold = QDoubleSpinBox(self.groupBox_3)
-        self.sp_output_threshold.setObjectName("sp_output_threshold")
-        self.sp_output_threshold.setValue(80.000000000000000)
+        self.pb_load_audio_file = QPushButton(self.groupBox_2)
+        self.pb_load_audio_file.setObjectName("pb_load_audio_file")
 
-        self.formLayout.setWidget(0, QFormLayout.FieldRole, self.sp_output_threshold)
+        self.formLayout_2.setWidget(0, QFormLayout.FieldRole, self.pb_load_audio_file)
 
-        self.label_6 = QLabel(self.groupBox_3)
-        self.label_6.setObjectName("label_6")
+        self.label_7 = QLabel(self.groupBox_2)
+        self.label_7.setObjectName("label_7")
 
-        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.label_6)
+        self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.label_7)
 
-        self.label_result = QLabel(self.groupBox_3)
-        self.label_result.setObjectName("label_result")
-        font = QFont()
-        font.setPointSize(28)
-        self.label_result.setFont(font)
+        self.l_loaded_file_dur = QLabel(self.groupBox_2)
+        self.l_loaded_file_dur.setObjectName("l_loaded_file_dur")
 
-        self.formLayout.setWidget(3, QFormLayout.FieldRole, self.label_result)
+        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.l_loaded_file_dur)
 
-        self.verticalSpacer_3 = QSpacerItem(
+        self.label_9 = QLabel(self.groupBox_2)
+        self.label_9.setObjectName("label_9")
+
+        self.formLayout_2.setWidget(2, QFormLayout.LabelRole, self.label_9)
+
+        self.l_loaded_file_rate = QLabel(self.groupBox_2)
+        self.l_loaded_file_rate.setObjectName("l_loaded_file_rate")
+
+        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.l_loaded_file_rate)
+
+        self.verticalSpacer_2 = QSpacerItem(
             20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
         )
 
-        self.formLayout.setItem(2, QFormLayout.LabelRole, self.verticalSpacer_3)
+        self.formLayout_2.setItem(3, QFormLayout.LabelRole, self.verticalSpacer_2)
 
-        self.pb_process = QPushButton(self.groupBox_3)
-        self.pb_process.setObjectName("pb_process")
-
-        self.formLayout.setWidget(1, QFormLayout.SpanningRole, self.pb_process)
-
-        self.gridLayout.addWidget(self.groupBox_3, 0, 2, 2, 1)
-
-        self.groupBox_4 = QGroupBox(self.centralwidget)
-        self.groupBox_4.setObjectName("groupBox_4")
-        self.formLayout_4 = QFormLayout(self.groupBox_4)
-        self.formLayout_4.setObjectName("formLayout_4")
-        self.pyqt_graph_audio = PlotWidget(self.groupBox_4)
-        self.pyqt_graph_audio.setObjectName("pyqt_graph_audio")
-        sizePolicy = QSizePolicy(
-            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.MinimumExpanding
-        )
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(200)
-        sizePolicy.setHeightForWidth(
-            self.pyqt_graph_audio.sizePolicy().hasHeightForWidth()
-        )
-        self.pyqt_graph_audio.setSizePolicy(sizePolicy)
-        self.pyqt_graph_audio.setMinimumSize(QSize(400, 200))
-
-        self.formLayout_4.setWidget(0, QFormLayout.SpanningRole, self.pyqt_graph_audio)
-
-        self.pyqt_graph_audio_2 = ImageView(self.groupBox_4)
-        self.pyqt_graph_audio_2.setObjectName("pyqt_graph_audio_2")
-        sizePolicy.setHeightForWidth(
-            self.pyqt_graph_audio_2.sizePolicy().hasHeightForWidth()
-        )
-        self.pyqt_graph_audio_2.setSizePolicy(sizePolicy)
-        self.pyqt_graph_audio_2.setMinimumSize(QSize(400, 200))
-
-        self.formLayout_4.setWidget(1, QFormLayout.FieldRole, self.pyqt_graph_audio_2)
-
-        self.gridLayout.addWidget(self.groupBox_4, 0, 1, 2, 1)
+        self.gridLayout.addWidget(self.groupBox_2, 0, 0, 1, 1)
 
         self.groupBox = QGroupBox(self.centralwidget)
         self.groupBox.setObjectName("groupBox")
@@ -216,53 +193,89 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.groupBox, 1, 0, 1, 1)
 
-        self.groupBox_2 = QGroupBox(self.centralwidget)
-        self.groupBox_2.setObjectName("groupBox_2")
-        self.formLayout_2 = QFormLayout(self.groupBox_2)
-        self.formLayout_2.setObjectName("formLayout_2")
-        self.label_2 = QLabel(self.groupBox_2)
-        self.label_2.setObjectName("label_2")
+        self.groupBox_4 = QGroupBox(self.centralwidget)
+        self.groupBox_4.setObjectName("groupBox_4")
+        self.formLayout_4 = QFormLayout(self.groupBox_4)
+        self.formLayout_4.setObjectName("formLayout_4")
+        self.pyqt_graph_audio = PlotWidget(self.groupBox_4)
+        self.pyqt_graph_audio.setObjectName("pyqt_graph_audio")
+        sizePolicy = QSizePolicy(
+            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.MinimumExpanding
+        )
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(200)
+        sizePolicy.setHeightForWidth(
+            self.pyqt_graph_audio.sizePolicy().hasHeightForWidth()
+        )
+        self.pyqt_graph_audio.setSizePolicy(sizePolicy)
+        self.pyqt_graph_audio.setMinimumSize(QSize(400, 200))
 
-        self.formLayout_2.setWidget(0, QFormLayout.LabelRole, self.label_2)
+        self.formLayout_4.setWidget(0, QFormLayout.SpanningRole, self.pyqt_graph_audio)
 
-        self.pb_load_audio_file = QPushButton(self.groupBox_2)
-        self.pb_load_audio_file.setObjectName("pb_load_audio_file")
+        self.pyqt_graph_audio_2 = ImageView(self.groupBox_4)
+        self.pyqt_graph_audio_2.setObjectName("pyqt_graph_audio_2")
+        sizePolicy.setHeightForWidth(
+            self.pyqt_graph_audio_2.sizePolicy().hasHeightForWidth()
+        )
+        self.pyqt_graph_audio_2.setSizePolicy(sizePolicy)
+        self.pyqt_graph_audio_2.setMinimumSize(QSize(400, 200))
 
-        self.formLayout_2.setWidget(0, QFormLayout.FieldRole, self.pb_load_audio_file)
+        self.formLayout_4.setWidget(1, QFormLayout.FieldRole, self.pyqt_graph_audio_2)
 
-        self.label_7 = QLabel(self.groupBox_2)
-        self.label_7.setObjectName("label_7")
+        self.gridLayout.addWidget(self.groupBox_4, 0, 1, 2, 1)
 
-        self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.label_7)
+        self.groupBox_3 = QGroupBox(self.centralwidget)
+        self.groupBox_3.setObjectName("groupBox_3")
+        self.formLayout = QFormLayout(self.groupBox_3)
+        self.formLayout.setObjectName("formLayout")
+        self.label_6 = QLabel(self.groupBox_3)
+        self.label_6.setObjectName("label_6")
 
-        self.l_loaded_file_dur = QLabel(self.groupBox_2)
-        self.l_loaded_file_dur.setObjectName("l_loaded_file_dur")
+        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.label_6)
 
-        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.l_loaded_file_dur)
+        self.label_result = QLabel(self.groupBox_3)
+        self.label_result.setObjectName("label_result")
+        font = QFont()
+        font.setPointSize(22)
+        self.label_result.setFont(font)
 
-        self.label_9 = QLabel(self.groupBox_2)
-        self.label_9.setObjectName("label_9")
+        self.formLayout.setWidget(1, QFormLayout.FieldRole, self.label_result)
 
-        self.formLayout_2.setWidget(2, QFormLayout.LabelRole, self.label_9)
-
-        self.l_loaded_file_rate = QLabel(self.groupBox_2)
-        self.l_loaded_file_rate.setObjectName("l_loaded_file_rate")
-
-        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.l_loaded_file_rate)
-
-        self.verticalSpacer_2 = QSpacerItem(
+        self.verticalSpacer_3 = QSpacerItem(
             20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
         )
 
-        self.formLayout_2.setItem(3, QFormLayout.LabelRole, self.verticalSpacer_2)
+        self.formLayout.setItem(2, QFormLayout.FieldRole, self.verticalSpacer_3)
 
-        self.gridLayout.addWidget(self.groupBox_2, 0, 0, 1, 1)
+        self.label = QLabel(self.groupBox_3)
+        self.label.setObjectName("label")
+
+        self.formLayout.setWidget(0, QFormLayout.LabelRole, self.label)
+
+        self.label_result_confidence = QLabel(self.groupBox_3)
+        self.label_result_confidence.setObjectName("label_result_confidence")
+        self.label_result_confidence.setFont(font)
+
+        self.formLayout.setWidget(
+            0, QFormLayout.FieldRole, self.label_result_confidence
+        )
+
+        self.gridLayout.addWidget(self.groupBox_3, 0, 2, 2, 1)
 
         self.gridLayout.setColumnStretch(1, 100)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        self.menuBar = QMenuBar(MainWindow)
+        self.menuBar.setObjectName("menuBar")
+        self.menuBar.setGeometry(QRect(0, 0, 1085, 19))
+        self.menuOptions = QMenu(self.menuBar)
+        self.menuOptions.setObjectName("menuOptions")
+        MainWindow.setMenuBar(self.menuBar)
+
+        self.menuBar.addAction(self.menuOptions.menuAction())
+        self.menuOptions.addAction(self.actionChange_Pre_Trained_Model)
 
         self.retranslateUi(MainWindow)
 
@@ -354,37 +367,9 @@ class Ui_MainWindow(object):
                 "MainWindow", "Spectrum-Reflectance Tab (Ctrl+3) or (Alt+3)", None
             )
         )
-        self.groupBox_3.setTitle(
-            QCoreApplication.translate("MainWindow", "Result", None)
+        self.actionChange_Pre_Trained_Model.setText(
+            QCoreApplication.translate("MainWindow", "Change Pre-Trained Model", None)
         )
-        self.label.setText(
-            QCoreApplication.translate("MainWindow", "Output Threshold", None)
-        )
-        self.label_6.setText(QCoreApplication.translate("MainWindow", "Output", None))
-        self.label_result.setText(
-            QCoreApplication.translate("MainWindow", "TextLabel", None)
-        )
-        self.pb_process.setText(
-            QCoreApplication.translate("MainWindow", "Process Audio", None)
-        )
-        self.groupBox_4.setTitle(
-            QCoreApplication.translate("MainWindow", "Audio Graph", None)
-        )
-        self.groupBox.setTitle(
-            QCoreApplication.translate("MainWindow", "Input 2", None)
-        )
-        self.label_4.setText(
-            QCoreApplication.translate("MainWindow", "Record duration (sec)", None)
-        )
-        self.label_3.setText(
-            QCoreApplication.translate("MainWindow", "Record Rate (1/sec)", None)
-        )
-        self.label_5.setText("")
-        self.pb_start_record.setText(
-            QCoreApplication.translate("MainWindow", "Start Record", None)
-        )
-        self.l_rec_state.setText(QCoreApplication.translate("MainWindow", "...", None))
-        self.label_10.setText(QCoreApplication.translate("MainWindow", "State", None))
         self.groupBox_2.setTitle(
             QCoreApplication.translate("MainWindow", "Input 1", None)
         )
@@ -405,6 +390,40 @@ class Ui_MainWindow(object):
         )
         self.l_loaded_file_rate.setText(
             QCoreApplication.translate("MainWindow", "...", None)
+        )
+        self.groupBox.setTitle(
+            QCoreApplication.translate("MainWindow", "Input 2", None)
+        )
+        self.label_4.setText(
+            QCoreApplication.translate("MainWindow", "Record duration (sec)", None)
+        )
+        self.label_3.setText(
+            QCoreApplication.translate("MainWindow", "Record Rate (1/sec)", None)
+        )
+        self.label_5.setText("")
+        self.pb_start_record.setText(
+            QCoreApplication.translate("MainWindow", "Start Record", None)
+        )
+        self.l_rec_state.setText(QCoreApplication.translate("MainWindow", "...", None))
+        self.label_10.setText(QCoreApplication.translate("MainWindow", "State", None))
+        self.groupBox_4.setTitle(
+            QCoreApplication.translate("MainWindow", "Audio Graph", None)
+        )
+        self.groupBox_3.setTitle(
+            QCoreApplication.translate("MainWindow", "Result", None)
+        )
+        self.label_6.setText(QCoreApplication.translate("MainWindow", "Result", None))
+        self.label_result.setText(
+            QCoreApplication.translate("MainWindow", "TextLabel", None)
+        )
+        self.label.setText(
+            QCoreApplication.translate("MainWindow", "Result Confidence", None)
+        )
+        self.label_result_confidence.setText(
+            QCoreApplication.translate("MainWindow", "TextLabel", None)
+        )
+        self.menuOptions.setTitle(
+            QCoreApplication.translate("MainWindow", "Options", None)
         )
 
     # retranslateUi

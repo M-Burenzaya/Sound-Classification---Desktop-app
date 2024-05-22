@@ -1,5 +1,6 @@
 import sys
 import os
+from typing import Tuple, List
 from numpy.typing import NDArray
 import torch
 import torchvision.transforms as transforms
@@ -137,7 +138,7 @@ class InfluenzaClassifier:
         print("Цээжний чимээний өгөгдөл хадгалагдлаа:", output_recorded_wav_file)
         return output_recorded_wav_file
 
-    def predict_image(self, image_path: str):
+    def predict_image(self, image_path: str) -> Tuple[str, List[float]]:
         image = Image.open(image_path)
 
         if image.mode == "RGBA":
