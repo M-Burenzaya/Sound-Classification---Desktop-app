@@ -14,7 +14,9 @@ import soundfile as sf
 from tqdm import tqdm
 import numpy as np
 
-# Define the class labels
+# CNN - ээр 2 ангилалд сургасан моделийг тест хийх
+
+# Ангилал
 classes = ['Эрүүл', 'Хатгаатай']
 
 output_image_directory = os.path.join(os.getcwd(), 'Spectrogram_Output')
@@ -61,86 +63,69 @@ class ConvNet(nn.Module):
 
         return output
 
-# Load the trained model
+# Сургасан модель
 model = ConvNet(num_classes=2)
 model.load_state_dict(torch.load('best_checkpoint_2_class_masked_5_17.model'))
 model.eval()
 
-# Define image transformation
+# Хувиргалт
 transform = transforms.Compose([
     transforms.Resize((256, 256)),
     transforms.ToTensor(),
     transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
 ])
 
-# Function to predict class label of the input image
-def predict_image(image_path):
-    image = Image.open(image_path)
-    image_tensor = transform(image).unsqueeze(0)  # Add batch dimension
-    with torch.no_grad():
-        output = model(image_tensor)
-        probabilities = torch.softmax(output, dim=1)[0]
-        confidence_score, predicted_class = torch.max(probabilities, 0)
-    predicted_label = classes[predicted_class]
-    return predicted_label, confidence_score.item()
 
-# Function to ask the user to choose an image file
-# Function to predict class label of the input image
 def predict_image(image_path):
     image = Image.open(image_path)
 
-    # Convert RGBA image to RGB if it has an alpha channel
     if image.mode == 'RGBA':
         image = image.convert('RGB')
 
-    image_tensor = transform(image).unsqueeze(0)  # Add batch dimension
+    image_tensor = transform(image).unsqueeze(0)
     with torch.no_grad():
         output = model(image_tensor)
         probabilities = torch.softmax(output, dim=1)[0]
-        confidence_scores = probabilities.tolist()  # Convert tensor to list
+        confidence_scores = probabilities.tolist()
         predicted_class = torch.argmax(probabilities).item()
     predicted_label = classes[predicted_class]
     return predicted_label, confidence_scores
-# Main function
 
-# Function to generate and save spectrogram image for a single audio file
+
 def generate_spectrogram(audio_path, output_directory):
-    # Load the audio file
-    audio, sample_rate = librosa.load(audio_path, sr=None)
 
-    # Generate the spectrogram
+    audio, sample_rate = librosa.load(audio_path, sr=None)
     spectrogram = librosa.feature.melspectrogram(y=audio, sr=sample_rate)
 
-    # Convert to decibels
     spectrogram_db = librosa.power_to_db(spectrogram, ref=np.max)
 
-    # Crop and scale the spectrogram
-    y_min = 0  # Minimum frequency (in Hz) to display
-    y_max = 2048  # Maximum frequency (in Hz) to display
+    y_min = 0  # Minimum frequency (in Hz)
+    y_max = 2048  # Maximum frequency (in Hz)
+
     freqs = librosa.mel_frequencies(n_mels=spectrogram.shape[0], fmin=0, fmax=8000)
     y_min_idx = np.argmin(np.abs(freqs - y_min))
     y_max_idx = np.argmin(np.abs(freqs - y_max))
     spectrogram_db = spectrogram_db[y_min_idx:y_max_idx, :]
 
-    # Plot the spectrogram without axis labels or color bar
-    plt.figure(figsize=(2.56, 2.56))  # Set the size of the figure to 256x256 pixels
-    plt.axis('off')  # Turn off axis labels
-    plt.imshow(spectrogram_db, aspect='auto', cmap='viridis')  # Plot the spectrogram
+
+    plt.figure(figsize=(2.56, 2.56))  # 256x256 зураг
+    plt.axis('off')
+    plt.imshow(spectrogram_db, aspect='auto', cmap='viridis')  # Плот хийх
     plt.tight_layout()
 
-    # Save the spectrogram image as a PNG
+    # Спектрограмыг зураг болгон хадгалах
     filename = os.path.basename(audio_path).split('.')[0] + '.png'
     output_path = os.path.join(output_directory, filename)
-    plt.savefig(output_path, format='png', bbox_inches='tight', pad_inches=0, transparent=True, dpi=256)  # Set DPI to 256 for 256x256 resolution
+    plt.savefig(output_path, format='png', bbox_inches='tight', pad_inches=0, transparent=True, dpi=256)
     plt.close()
     return output_path
 
-# Function to ask the user to choose an audio file
+
 def choose_audio():
     root = tk.Tk()
     root.withdraw()
     file_path = filedialog.askopenfilename(title="Choose an audio file", filetypes=[("WAV files", "*.wav")])
-    print("Selected audio file:", file_path)  # Debugging print statement
+    print("Selected audio file:", file_path)
     return file_path
 
 def record_audio(output_directory, output_filename, duration=10, sample_rate=44100, channels=1):
@@ -148,8 +133,8 @@ def record_audio(output_directory, output_filename, duration=10, sample_rate=441
     print("Бичиж байна...")
     frames = int(duration * sample_rate)
     audio = sd.rec(frames, samplerate=sample_rate, channels=channels, dtype='float32')
-    sd.wait()  # Wait until recording is finished
-    sf.write(output_file, audio, sample_rate)  # Save the recorded audio to a file
+    sd.wait()  # 10 секунд бичлэг хийгдтэл хүлээнэ
+    sf.write(output_file, audio, sample_rate)  # Аудио файлыг хадгалах
     print("Цээжний чимээний өгөгдөл хадгалагдлаа:", output_file)
 
 
@@ -184,8 +169,6 @@ def main():
             predicted_label, confidence_scores = predict_image(spectrogram_path)
             print("\nТаамаглаж буй ангилал:", predicted_label)
             print("Таамагласан оноо [Эрүүл, Хатгаатай]:", confidence_scores)
-
-
 
 if __name__ == "__main__":
     main()
