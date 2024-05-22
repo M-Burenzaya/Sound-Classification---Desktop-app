@@ -66,6 +66,7 @@ class ConvNet(nn.Module):
 # Сургасан модель
 model = ConvNet(num_classes=2)
 model.load_state_dict(torch.load('best_checkpoint_2_class_masked_5_17.model'))
+
 model.eval()
 
 # Хувиргалт
