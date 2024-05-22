@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1085</width>
+    <height>551</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout" columnstretch="0,100,0">
+    <item row="0" column="0">
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="title">
+       <string>Input 1</string>
+      </property>
+      <layout class="QFormLayout" name="formLayout_2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Load file </string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="pb_load_audio_file">
+         <property name="text">
+          <string>Load File</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>File duration (s)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="l_loaded_file_dur">
+         <property name="text">
+          <string>...</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>File Rate (1/s)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="l_loaded_file_rate">
+         <property name="text">
+          <string>...</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Input 2</string>
+      </property>
+      <layout class="QFormLayout" name="formLayout_3">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Record duration (sec)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QDoubleSpinBox" name="sp_audio_rec_duration">
+         <property name="value">
+          <double>10.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Record Rate (1/sec)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QSpinBox" name="sp_audio_rec_rate">
+         <property name="maximum">
+          <number>999999</number>
+         </property>
+         <property name="value">
+          <number>44100</number>
+         </property>
+         <property name="displayIntegerBase">
+          <number>10</number>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QPushButton" name="pb_start_record">
+         <property name="text">
+          <string>Start Record</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="1" rowspan="2">
+     <widget class="QGroupBox" name="groupBox_4">
+      <property name="title">
+       <string>Audio Graph</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QPushButton" name="pb_play_selected_audio">
+         <property name="text">
+          <string>▶  Playback</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="PlotWidget" name="pyqt_graph_audio" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>200</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>400</width>
+           <height>200</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="ImageView" name="pyqt_graph_audio_2" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>200</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>400</width>
+           <height>200</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="2" rowspan="2">
+     <widget class="QGroupBox" name="groupBox_3">
+      <property name="title">
+       <string>Result</string>
+      </property>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Result</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="label_result">
+         <property name="font">
+          <font>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Result Confidence</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="label_result_confidence">
+         <property name="font">
+          <font>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1085</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <addaction name="actionChange_Pre_Trained_Model"/>
+    <addaction name="actionChange_Output_Directory"/>
+    <addaction name="actionOpen_Output_Directory"/>
+   </widget>
+   <addaction name="menuOptions"/>
+  </widget>
+  <action name="actionOpen_Directory">
+   <property name="text">
+    <string>Open Directory</string>
+   </property>
+  </action>
+  <action name="action_cur_jpeg_export">
+   <property name="text">
+    <string>Export (Ctlr-E)</string>
+   </property>
+  </action>
+  <action name="action_geometry_load">
+   <property name="text">
+    <string>Load geometry configuration (Ctrl + L)</string>
+   </property>
+  </action>
+  <action name="action_help">
+   <property name="text">
+    <string>Help (Ctrl+H)</string>
+   </property>
+  </action>
+  <action name="actionRead_Dependencies">
+   <property name="text">
+    <string>Read Dependencies</string>
+   </property>
+  </action>
+  <action name="actionContact_information">
+   <property name="text">
+    <string>Contact information</string>
+   </property>
+  </action>
+  <action name="action_about">
+   <property name="text">
+    <string>About (Ctrl+A)</string>
+   </property>
+  </action>
+  <action name="actionContact">
+   <property name="text">
+    <string>Contact</string>
+   </property>
+  </action>
+  <action name="action_cur_jpeg_preview">
+   <property name="text">
+    <string>Preview (Space)</string>
+   </property>
+  </action>
+  <action name="action_dir_goto_parent">
+   <property name="text">
+    <string>Go to Parent Directory (Backspace)</string>
+   </property>
+  </action>
+  <action name="action_dir_goto_cur_child">
+   <property name="text">
+    <string>Go inside Selected Directory (Enter)</string>
+   </property>
+  </action>
+  <action name="action_dir_cur_child_fold">
+   <property name="text">
+    <string>Fold Selected Directory (Left Arrow)</string>
+   </property>
+  </action>
+  <action name="action_dir_cur_child_unfold">
+   <property name="text">
+    <string>Unfold Selected Directory (Right Arrow)</string>
+   </property>
+  </action>
+  <action name="action_cur_file_open">
+   <property name="text">
+    <string>Open with an external app (Ctrl+O)</string>
+   </property>
+  </action>
+  <action name="actionsdf">
+   <property name="text">
+    <string>sdf</string>
+   </property>
+  </action>
+  <action name="actionSave_geometry_configuration_Ctrl_Shift_L">
+   <property name="text">
+    <string>Save geometry configuration (Ctrl + Shift + L)</string>
+   </property>
+  </action>
+  <action name="action_dir_ft_filter_toggle">
+   <property name="text">
+    <string>File type filter toggle (Ctrl+F)</string>
+   </property>
+  </action>
+  <action name="action_tabs_show_tab1">
+   <property name="text">
+    <string>Raw Bayer Tab (Ctrl+1) or (Alt+1)</string>
+   </property>
+  </action>
+  <action name="action_tabs_show_tab2">
+   <property name="text">
+    <string>Spectrum-Raw Tab (Ctrl+2) or (Alt+2)</string>
+   </property>
+  </action>
+  <action name="action_tabs_show_tab3">
+   <property name="text">
+    <string>Spectrum-Reflectance Tab (Ctrl+3) or (Alt+3)</string>
+   </property>
+  </action>
+  <action name="actionChange_Pre_Trained_Model">
+   <property name="text">
+    <string>Change Pre-Trained Model</string>
+   </property>
+  </action>
+  <action name="actionChange_Output_Directory">
+   <property name="text">
+    <string>Change Output Directory</string>
+   </property>
+  </action>
+  <action name="actionOpen_Output_Directory">
+   <property name="text">
+    <string>Open Output Directory</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlotWidget</class>
+   <extends>QWidget</extends>
+   <header>pyqtgraph</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ImageView</class>
+   <extends>QWidget</extends>
+   <header>pyqtgraph</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
