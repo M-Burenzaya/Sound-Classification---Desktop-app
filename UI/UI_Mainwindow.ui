@@ -282,6 +282,7 @@
     </property>
     <addaction name="actionChange_Pre_Trained_Model"/>
     <addaction name="actionChange_Output_Directory"/>
+    <addaction name="actionOpen_Output_Directory"/>
    </widget>
    <addaction name="menuOptions"/>
   </widget>
@@ -393,6 +394,11 @@
   <action name="actionChange_Output_Directory">
    <property name="text">
     <string>Change Output Directory</string>
+   </property>
+  </action>
+  <action name="actionOpen_Output_Directory">
+   <property name="text">
+    <string>Open Output Directory</string>
    </property>
   </action>
  </widget>

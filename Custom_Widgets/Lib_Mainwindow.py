@@ -1,10 +1,12 @@
 # ---------- Base libraries -------------------------------------------------------------------------------------------
 import os
+from os.path import isdir
 from typing import List
 import tempfile
 import logging
 
-# import platform
+import platform
+import subprocess
 from datetime import datetime
 #from pathlib import Path
 
@@ -32,19 +34,47 @@ logging.basicConfig(
     level=logging.INFO,
 )
 
+def open_file_externally(system_str, filepath: str) -> None:
+    """Opens given file externally, without hanging current running python script."""
+    try:
+        if system_str == "Windows":   # Windows
+            os.startfile(filepath)    # type: ignore
+        elif system_str == "Darwin":  # BSDs and macos
+            subprocess.Popen(("open ", filepath), stdin=None, stdout=None, stderr=None, close_fds=True)  # shell=True,
+        elif system_str == "Linux":   # linux variants
+            subprocess.Popen(
+                ("xdg-open", os.path.abspath(filepath)),  # shell=True,
+                stdin=None,
+                stdout=None,
+                stderr=None,
+                close_fds=True,
+            )
+        else:
+            logging.warning(f"Strange os-platform string id: {system_str}")
+            logging.warning(" - Cannot open file")
+        return None
+    except Exception as e:
+        logging.warning(f"error when openning {filepath}:\n{e}")
+        return None
 
 class TheMainWindow(QMainWindow):
     inf_classifier: InfluenzaClassifier
     pred_label: str
     pred_confidence: List[float]
+    output_directory: str  = tempfile.gettempdir()
+    os_name: str           = platform.system() # get the name of OS, Windows, Darwin, Linux
 
     def __init__(self, parent: QWidget | None = None) -> None:
         super(TheMainWindow, self).__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
         self.ui.pb_load_audio_file.clicked.connect(self.callback_pb_load_audio_file)
         self.ui.pb_start_record.clicked.connect(self.callback_pb_start_record)
         self.ui.actionChange_Pre_Trained_Model.triggered.connect(self.callback_change_pretrained_data)
+        self.ui.actionChange_Output_Directory.triggered.connect(self.callback_change_output_directory)
+        self.ui.actionOpen_Output_Directory.triggered.connect(
+            lambda: open_file_externally(self.os_name, self.output_directory))
         # self.ui.pb_process.clicked.connect(self.call_process)
 
         self.inf_classifier = InfluenzaClassifier("./CoreCodes/best_checkpoint_2_class_masked_5_17.model")
@@ -106,7 +136,7 @@ class TheMainWindow(QMainWindow):
         logging.info("callback_pb_start_record: Starting Record")
 
         file_path_wav_output = self.inf_classifier.record_audio(
-            output_directory="/tmp",
+            output_directory=self.output_directory,
             output_filename=datetime.now().strftime("%Y%m%d_%H%M%S.wav"),
             duration=10,
             sample_rate=44100,
@@ -171,3 +201,14 @@ class TheMainWindow(QMainWindow):
             dlg.setWindowTitle("Problem")
             dlg.setText(f"Problem while loading {selected_file_path_for_model}")
             dlg.exec()
+
+    def callback_change_output_directory(self) -> None:
+        """Changes output file directory"""
+        file: str = QFileDialog.getExistingDirectory(self, "Select Directory")
+        print(file, type(file))
+
+        if file == "":
+            logging.info("callback_change_output_directory: CANCEL-ed")
+            return
+
+        self.output_directory = file

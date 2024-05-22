@@ -93,6 +93,8 @@ class Ui_MainWindow(object):
         self.actionChange_Output_Directory.setObjectName(
             "actionChange_Output_Directory"
         )
+        self.actionOpen_Output_Directory = QAction(MainWindow)
+        self.actionOpen_Output_Directory.setObjectName("actionOpen_Output_Directory")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QGridLayout(self.centralwidget)
@@ -281,6 +283,7 @@ class Ui_MainWindow(object):
         self.menuBar.addAction(self.menuOptions.menuAction())
         self.menuOptions.addAction(self.actionChange_Pre_Trained_Model)
         self.menuOptions.addAction(self.actionChange_Output_Directory)
+        self.menuOptions.addAction(self.actionOpen_Output_Directory)
 
         self.retranslateUi(MainWindow)
 
@@ -377,6 +380,9 @@ class Ui_MainWindow(object):
         )
         self.actionChange_Output_Directory.setText(
             QCoreApplication.translate("MainWindow", "Change Output Directory", None)
+        )
+        self.actionOpen_Output_Directory.setText(
+            QCoreApplication.translate("MainWindow", "Open Output Directory", None)
         )
         self.groupBox_2.setTitle(
             QCoreApplication.translate("MainWindow", "Input 1", None)
