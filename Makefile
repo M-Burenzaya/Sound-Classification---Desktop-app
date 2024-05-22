@@ -16,7 +16,6 @@ convert_all:
 	make convert_fix
 	make convert_black
 	make convert_removal_imports
-	#echo "please manualy add 'import QRCs.main_resource' in Custom_UI/UI_Mainwindow.py"
 
 release:
 	pyinstaller -F main.py
