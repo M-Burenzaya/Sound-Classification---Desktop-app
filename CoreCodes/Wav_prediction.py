@@ -64,12 +64,12 @@ class InfluenzaClassifier:
     sample_rate: int | float  # self.sample_rate type hinting: int or float
     spectrogram: NDArray[np.float32]  # self.spectrogram
     spectrogram_db: NDArray[np.float32]  # self.spectrogram_db
+    output_path_spectrogram_img: str
 
     def __init__(
         self,
         pre_trained_model_path: str = "best_checkpoint_2_class_masked_5_17.model",
     ) -> None:
-
         self.classes = ["Эрүүл", "Хатгаатай"]
         self.load_pre_trained_model(pre_trained_model_path, using_cpu=True)  # load pretrained model
 
@@ -87,7 +87,7 @@ class InfluenzaClassifier:
             # I needed to create this because my laptop don't have GPU
         self.model.eval()
 
-    def generate_spectrogram(
+    def generate_spectrogram_from_wav_file(
         self,
         audio_path: str,
         output_directory: str,
@@ -99,6 +99,7 @@ class InfluenzaClassifier:
         self.audio, self.sample_rate = librosa.load(audio_path, sr=None, dtype=np.float32)
         self.spectrogram = librosa.feature.melspectrogram(y=self.audio, sr=self.sample_rate)
         self.spectrogram_db = librosa.power_to_db(self.spectrogram, ref=np.max)
+        self.time = np.linspace(start=0, stop=self.audio.shape[0] * self.sample_rate, num=self.audio.shape[0])  # just for Plotting purposes
 
         self.freqs = librosa.mel_frequencies(n_mels=self.spectrogram.shape[0], fmin=0, fmax=8000)
         y_min_idx = np.argmin(np.abs(self.freqs - y_min_freq))
@@ -112,21 +113,29 @@ class InfluenzaClassifier:
 
         # Спектрограмыг зураг болгон хадгалах
         filename = os.path.basename(audio_path).split(".")[0] + ".png"
-        output_path = os.path.join(output_directory, filename)
-        plt.savefig(output_path, format="png", bbox_inches="tight", pad_inches=0, transparent=True, dpi=256)
+        self.output_path_spectrogram_img = os.path.join(output_directory, filename)
+        plt.savefig(self.output_path_spectrogram_img, format="png", bbox_inches="tight", pad_inches=0, transparent=True, dpi=256)
         plt.close()
-        return output_path
+        return self.output_path_spectrogram_img
 
-    def record_audio(self, output_directory: str, output_filename: str, duration: float = 10.0, sample_rate: int = 44100, channels: int = 1) -> None:
+    def record_audio(
+        self,
+        output_directory: str,
+        output_filename: str,
+        duration: float = 10.0,
+        sample_rate: int = 44100,
+        channels: int = 1,
+    ) -> str:
         """Records Audio, and saves as file"""
-        output_file = os.path.join(output_directory, output_filename)
+        output_recorded_wav_file = os.path.join(output_directory, output_filename)
         print("Бичиж байна...")
 
         frames = int(duration * sample_rate)
         audio = sd.rec(frames, samplerate=sample_rate, channels=channels, dtype=np.float32)
         sd.wait()  # {duration} секунд бичлэг хийгдтэл хүлээнэ
-        sf.write(output_file, audio, sample_rate)  # Аудио файлыг хадгалах
-        print("Цээжний чимээний өгөгдөл хадгалагдлаа:", output_file)
+        sf.write(output_recorded_wav_file, audio, sample_rate)  # Аудио файлыг хадгалах
+        print("Цээжний чимээний өгөгдөл хадгалагдлаа:", output_recorded_wav_file)
+        return output_recorded_wav_file
 
     def predict_image(self, image_path: str):
         image = Image.open(image_path)
@@ -151,10 +160,11 @@ def choose_audio() -> str:
     print("Selected audio file:", file_path)
     return file_path
 
+
 def main() -> None:
     """When using from terminal"""
-    output_image_directory = "/tmp/"   #os.path.join(os.getcwd(), "Spectrogram_Output")
-    output_audio_directory = "/tmp/"   #os.path.join(os.getcwd(), "Recorded_audio_Output")
+    output_image_directory = "/tmp/"  # os.path.join(os.getcwd(), "Spectrogram_Output")
+    output_audio_directory = "/tmp/"  # os.path.join(os.getcwd(), "Recorded_audio_Output")
 
     inf_classifier = InfluenzaClassifier()
 
@@ -178,18 +188,18 @@ def main() -> None:
             continue
 
         if audio_path:
-            spectrogram_path = inf_classifier.generate_spectrogram(audio_path, output_image_directory)
-
-            spectrogram_image = Image.open(spectrogram_path)
+            spectrogram_img_path = inf_classifier.generate_spectrogram_from_wav_file(audio_path, output_image_directory)
+            spectrogram_image = Image.open(spectrogram_img_path)
 
             plt.imshow(spectrogram_image)
             plt.axis("off")
             plt.show()
 
             spectrogram_image.close()
-            predicted_label, confidence_scores = inf_classifier.predict_image(spectrogram_path)
+            predicted_label, confidence_scores = inf_classifier.predict_image(spectrogram_img_path)
             print("\nТаамаглаж буй ангилал:", predicted_label)
             print("Таамагласан оноо [Эрүүл, Хатгаатай]:", confidence_scores)
+
 
 if __name__ == "__main__":
     main()
