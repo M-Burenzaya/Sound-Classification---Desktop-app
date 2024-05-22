@@ -31,7 +31,7 @@
        <item row="0" column="1">
         <widget class="QPushButton" name="pb_load_audio_file">
          <property name="text">
-          <string>File</string>
+          <string>Load File</string>
          </property>
         </widget>
        </item>
@@ -63,7 +63,7 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="3" column="1">
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Orientation::Vertical</enum>
@@ -133,7 +133,7 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
+       <item row="3" column="1">
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Orientation::Vertical</enum>
@@ -146,20 +146,6 @@
          </property>
         </spacer>
        </item>
-       <item row="3" column="1">
-        <widget class="QLabel" name="l_rec_state">
-         <property name="text">
-          <string>...</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_10">
-         <property name="text">
-          <string>State</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
     </item>
@@ -168,8 +154,15 @@
       <property name="title">
        <string>Audio Graph</string>
       </property>
-      <layout class="QFormLayout" name="formLayout_4">
-       <item row="0" column="0" colspan="2">
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QPushButton" name="pb_play_selected_audio">
+         <property name="text">
+          <string>▶  Playback</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="PlotWidget" name="pyqt_graph_audio" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
@@ -183,22 +176,28 @@
            <height>200</height>
           </size>
          </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="ImageView" name="pyqt_graph_audio_2" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-           <horstretch>0</horstretch>
-           <verstretch>200</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>400</width>
-           <height>200</height>
-          </size>
-         </property>
+         <widget class="ImageView" name="pyqt_graph_audio_2" native="true">
+          <property name="geometry">
+           <rect>
+            <x>-10</x>
+            <y>10</y>
+            <width>540</width>
+            <height>223</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+            <horstretch>0</horstretch>
+            <verstretch>200</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>400</width>
+            <height>200</height>
+           </size>
+          </property>
+         </widget>
         </widget>
        </item>
       </layout>

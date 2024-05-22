@@ -153,6 +153,8 @@ class InfluenzaClassifier:
         predicted_label = self.classes[predicted_class]  # type: ignore
         return predicted_label, confidence_scores
 
+    def playback_loaded_audio_data(self) -> None:
+        sd.play(self.audio, self.sample_rate)
 
 def choose_audio() -> str:
     root = tk.Tk()

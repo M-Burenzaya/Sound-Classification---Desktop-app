@@ -32,6 +32,7 @@ from PySide6.QtWidgets import (
     QSpacerItem,
     QSpinBox,
     QStatusBar,
+    QVBoxLayout,
     QWidget,
 )
 
@@ -137,7 +138,7 @@ class Ui_MainWindow(object):
             20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
         )
 
-        self.formLayout_2.setItem(3, QFormLayout.LabelRole, self.verticalSpacer_2)
+        self.formLayout_2.setItem(3, QFormLayout.FieldRole, self.verticalSpacer_2)
 
         self.gridLayout.addWidget(self.groupBox_2, 0, 0, 1, 1)
 
@@ -185,24 +186,19 @@ class Ui_MainWindow(object):
             20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
         )
 
-        self.formLayout_3.setItem(4, QFormLayout.FieldRole, self.verticalSpacer)
-
-        self.l_rec_state = QLabel(self.groupBox)
-        self.l_rec_state.setObjectName("l_rec_state")
-
-        self.formLayout_3.setWidget(3, QFormLayout.FieldRole, self.l_rec_state)
-
-        self.label_10 = QLabel(self.groupBox)
-        self.label_10.setObjectName("label_10")
-
-        self.formLayout_3.setWidget(3, QFormLayout.LabelRole, self.label_10)
+        self.formLayout_3.setItem(3, QFormLayout.FieldRole, self.verticalSpacer)
 
         self.gridLayout.addWidget(self.groupBox, 1, 0, 1, 1)
 
         self.groupBox_4 = QGroupBox(self.centralwidget)
         self.groupBox_4.setObjectName("groupBox_4")
-        self.formLayout_4 = QFormLayout(self.groupBox_4)
-        self.formLayout_4.setObjectName("formLayout_4")
+        self.verticalLayout = QVBoxLayout(self.groupBox_4)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.pb_play_selected_audio = QPushButton(self.groupBox_4)
+        self.pb_play_selected_audio.setObjectName("pb_play_selected_audio")
+
+        self.verticalLayout.addWidget(self.pb_play_selected_audio)
+
         self.pyqt_graph_audio = PlotWidget(self.groupBox_4)
         self.pyqt_graph_audio.setObjectName("pyqt_graph_audio")
         sizePolicy = QSizePolicy(
@@ -215,18 +211,16 @@ class Ui_MainWindow(object):
         )
         self.pyqt_graph_audio.setSizePolicy(sizePolicy)
         self.pyqt_graph_audio.setMinimumSize(QSize(400, 200))
-
-        self.formLayout_4.setWidget(0, QFormLayout.SpanningRole, self.pyqt_graph_audio)
-
-        self.pyqt_graph_audio_2 = ImageView(self.groupBox_4)
+        self.pyqt_graph_audio_2 = ImageView(self.pyqt_graph_audio)
         self.pyqt_graph_audio_2.setObjectName("pyqt_graph_audio_2")
+        self.pyqt_graph_audio_2.setGeometry(QRect(-10, 10, 540, 223))
         sizePolicy.setHeightForWidth(
             self.pyqt_graph_audio_2.sizePolicy().hasHeightForWidth()
         )
         self.pyqt_graph_audio_2.setSizePolicy(sizePolicy)
         self.pyqt_graph_audio_2.setMinimumSize(QSize(400, 200))
 
-        self.formLayout_4.setWidget(1, QFormLayout.FieldRole, self.pyqt_graph_audio_2)
+        self.verticalLayout.addWidget(self.pyqt_graph_audio)
 
         self.gridLayout.addWidget(self.groupBox_4, 0, 1, 2, 1)
 
@@ -391,7 +385,7 @@ class Ui_MainWindow(object):
             QCoreApplication.translate("MainWindow", "Load file ", None)
         )
         self.pb_load_audio_file.setText(
-            QCoreApplication.translate("MainWindow", "File", None)
+            QCoreApplication.translate("MainWindow", "Load File", None)
         )
         self.label_7.setText(
             QCoreApplication.translate("MainWindow", "File duration (s)", None)
@@ -418,10 +412,11 @@ class Ui_MainWindow(object):
         self.pb_start_record.setText(
             QCoreApplication.translate("MainWindow", "Start Record", None)
         )
-        self.l_rec_state.setText(QCoreApplication.translate("MainWindow", "...", None))
-        self.label_10.setText(QCoreApplication.translate("MainWindow", "State", None))
         self.groupBox_4.setTitle(
             QCoreApplication.translate("MainWindow", "Audio Graph", None)
+        )
+        self.pb_play_selected_audio.setText(
+            QCoreApplication.translate("MainWindow", "\u25b6  Playback", None)
         )
         self.groupBox_3.setTitle(
             QCoreApplication.translate("MainWindow", "Result", None)

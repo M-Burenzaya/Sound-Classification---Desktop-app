@@ -68,15 +68,17 @@ class TheMainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+
+        self.inf_classifier = InfluenzaClassifier("./CoreCodes/best_checkpoint_2_class_masked_5_17.model")
+
         self.ui.pb_load_audio_file.clicked.connect(self.callback_pb_load_audio_file)
         self.ui.pb_start_record.clicked.connect(self.callback_pb_start_record)
         self.ui.actionChange_Pre_Trained_Model.triggered.connect(self.callback_change_pretrained_data)
         self.ui.actionChange_Output_Directory.triggered.connect(self.callback_change_output_directory)
+        self.ui.pb_play_selected_audio.clicked.connect(self.inf_classifier.playback_loaded_audio_data)
         self.ui.actionOpen_Output_Directory.triggered.connect(
             lambda: open_file_externally(self.os_name, self.output_directory))
-        # self.ui.pb_process.clicked.connect(self.call_process)
 
-        self.inf_classifier = InfluenzaClassifier("./CoreCodes/best_checkpoint_2_class_masked_5_17.model")
         logging.info("TheMainWindow: Done")
 
 
