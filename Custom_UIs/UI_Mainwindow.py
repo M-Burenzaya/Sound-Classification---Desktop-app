@@ -32,7 +32,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from pyqtgraph import PlotWidget
+from pyqtgraph import ImageView, PlotWidget
 
 
 class Ui_MainWindow(object):
@@ -129,8 +129,8 @@ class Ui_MainWindow(object):
 
         self.groupBox_4 = QGroupBox(self.centralwidget)
         self.groupBox_4.setObjectName("groupBox_4")
-        self.gridLayout_2 = QGridLayout(self.groupBox_4)
-        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.formLayout_4 = QFormLayout(self.groupBox_4)
+        self.formLayout_4.setObjectName("formLayout_4")
         self.pyqt_graph_audio = PlotWidget(self.groupBox_4)
         self.pyqt_graph_audio.setObjectName("pyqt_graph_audio")
         sizePolicy = QSizePolicy(
@@ -144,7 +144,17 @@ class Ui_MainWindow(object):
         self.pyqt_graph_audio.setSizePolicy(sizePolicy)
         self.pyqt_graph_audio.setMinimumSize(QSize(400, 200))
 
-        self.gridLayout_2.addWidget(self.pyqt_graph_audio, 0, 0, 1, 1)
+        self.formLayout_4.setWidget(0, QFormLayout.SpanningRole, self.pyqt_graph_audio)
+
+        self.pyqt_graph_audio_2 = ImageView(self.groupBox_4)
+        self.pyqt_graph_audio_2.setObjectName("pyqt_graph_audio_2")
+        sizePolicy.setHeightForWidth(
+            self.pyqt_graph_audio_2.sizePolicy().hasHeightForWidth()
+        )
+        self.pyqt_graph_audio_2.setSizePolicy(sizePolicy)
+        self.pyqt_graph_audio_2.setMinimumSize(QSize(400, 200))
+
+        self.formLayout_4.setWidget(1, QFormLayout.FieldRole, self.pyqt_graph_audio_2)
 
         self.gridLayout.addWidget(self.groupBox_4, 0, 1, 2, 1)
 
@@ -248,6 +258,7 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.groupBox_2, 0, 0, 1, 1)
 
+        self.gridLayout.setColumnStretch(1, 100)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
