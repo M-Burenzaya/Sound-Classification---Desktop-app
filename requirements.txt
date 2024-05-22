@@ -1,0 +1,15 @@
+librosa==0.10.2.post1
+matplotlib==3.8.3
+numpy==1.26.4
+Pillow==10.3.0
+pyqtgraph==0.13.6
+pyqtgraph==0.13.7
+PySide6==6.7.0
+PySide6==6.7.0
+PySide6.egg==info
+PySide6_Addons==6.7.0
+PySide6_Essentials==6.7.0
+sounddevice==0.4.6
+soundfile==0.12.1
+torch==2.3.0
+torchvision==0.18.0

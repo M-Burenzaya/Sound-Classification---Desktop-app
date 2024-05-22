@@ -25,3 +25,7 @@
   (if we load it manually (eg. user manually clicking to load), then use to create EXE or APPIMAGE)
 
 
+# Required librareis
+
+Check
+![requirement](./requirements.txt)
