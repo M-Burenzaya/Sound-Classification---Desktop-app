@@ -1,6 +1,5 @@
 # ---------- Base libraries -------------------------------------------------------------------------------------------
 import os
-from os.path import isdir
 from typing import List
 import tempfile
 import logging
@@ -160,6 +159,11 @@ class TheMainWindow(QMainWindow):
         )
         logging.info("predict_and_then_update_result_ui: predicted")
         self.ui.label_result.setText(self.pred_label)
+        self.ui.label_result.setStyleSheet(
+            "background-color: lightgreen"
+            if self.pred_label == self.inf_classifier.classes[0]
+            else "background-color: lightpink"
+        )
         self.ui.label_result_confidence.setText(
             f"[{self.pred_confidence[0]:.2f}~{self.pred_confidence[1]:.2f}]"
         )
@@ -205,7 +209,6 @@ class TheMainWindow(QMainWindow):
     def callback_change_output_directory(self) -> None:
         """Changes output file directory"""
         file: str = QFileDialog.getExistingDirectory(self, "Select Directory")
-        print(file, type(file))
 
         if file == "":
             logging.info("callback_change_output_directory: CANCEL-ed")
