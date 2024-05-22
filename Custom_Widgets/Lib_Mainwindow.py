@@ -24,7 +24,7 @@ from PIL import Image
 import numpy as np
 
 # ---------- GUI libraries --------------------------------------------------------------------------------------------
-from PySide6.QtWidgets import QMainWindow, QWidget, QFileDialog
+from PySide6.QtWidgets import QMainWindow, QWidget, QFileDialog, QMessageBox
 
 # from PySide6.QtGui import QKeySequence, QShortcut, QColor
 from PySide6.QtCore import Qt  # pQModelIndex, QDir,
@@ -57,6 +57,7 @@ class TheMainWindow(QMainWindow):
         self.ui.setupUi(self)
         self.ui.pb_load_audio_file.clicked.connect(self.callback_pb_load_audio_file)
         self.ui.pb_start_record.clicked.connect(self.callback_pb_start_record)
+        self.ui.actionChange_Pre_Trained_Model.triggered.connect(self.callback_change_pretrained_data)
         # self.ui.pb_process.clicked.connect(self.call_process)
 
         self.inf_classifier = InfluenzaClassifier("./CoreCodes/best_checkpoint_2_class_masked_5_17.model")
@@ -104,7 +105,11 @@ class TheMainWindow(QMainWindow):
         self.predict_and_then_update_result_ui()
 
     def callback_pb_start_record(self) -> None:
-        self.ui.pb_start_record.setText("Recording")
+        dlg = QMessageBox(self)
+        dlg.setWindowTitle("Record...")
+        dlg.setText("Start after pressing OK")
+        dlg.exec()
+
 
         file_path_wav_output = self.inf_classifier.record_audio(
             output_directory="/tmp",
@@ -114,10 +119,14 @@ class TheMainWindow(QMainWindow):
             channels=1,
         )
 
-        self.ui.l_rec_state.setText(f"Record saved at {file_path_wav_output}")
+        dlg = QMessageBox(self)
+        dlg.setWindowTitle("Record...")
+        dlg.setText("Finshed")
+        dlg.exec()
+        #self.ui.l_rec_state.setText(f"Record saved at {file_path_wav_output}")
 
         self.load_audio_file(file_path_wav_output)
-        self.predict_and_then_update_result_ui()
+        #self.predict_and_then_update_result_ui() already executed inside of  self.load_audio_file
 
         self.ui.pb_start_record.setText("Start New Record")
 
@@ -129,3 +138,37 @@ class TheMainWindow(QMainWindow):
         self.ui.label_result_confidence.setText(
             f"[{self.pred_confidence[0]:.2f}~{self.pred_confidence[1]:.2f}]"
         )
+
+        dlg = QMessageBox(self)
+        dlg.setWindowTitle("Result")
+        dlg.setText(
+            f"Prediction Finished Result: {self.pred_label}"
+        )
+        dlg.exec()
+
+    def callback_change_pretrained_data(self) -> None:
+        dlg = QFileDialog()
+        dlg.setFileMode(QFileDialog.FileMode.AnyFile)
+        dlg.setNameFilters(["Other File (*)", "Model (*.model)"])
+        dlg.selectNameFilter("Model (*.model)")
+
+        if dlg.exec_():
+            selected_file_path_for_model = dlg.selectedFiles()[0]
+            #self.load_audio_file(selected_file_path_for_model)
+            try:
+                self.inf_classifier.load_pre_trained_model(selected_file_path_for_model, True)
+
+                dlg = QMessageBox(self)
+                dlg.setWindowTitle("Success")
+                dlg.setText(
+                    f"Loaded new file at {selected_file_path_for_model}"
+                )
+                dlg.exec()
+
+            except Exception:
+                dlg = QMessageBox(self)
+                dlg.setWindowTitle("Problem")
+                dlg.setText(
+                    f"Problem while loading {selected_file_path_for_model}"
+                )
+                dlg.exec()
