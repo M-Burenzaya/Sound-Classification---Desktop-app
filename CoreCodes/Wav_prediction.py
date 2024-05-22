@@ -7,6 +7,7 @@ import torchvision.transforms as transforms
 from PIL import Image
 import torch.nn as nn
 
+import tempfile
 import tkinter as tk
 from tkinter import filedialog
 
@@ -166,8 +167,9 @@ def choose_audio() -> str:
 
 def main() -> None:
     """When using from terminal"""
-    output_image_directory = "/tmp/"  # os.path.join(os.getcwd(), "Spectrogram_Output")
-    output_audio_directory = "/tmp/"  # os.path.join(os.getcwd(), "Recorded_audio_Output")
+    output_image_directory = tempfile.gettempdir() # os.path.join(os.getcwd(), "Spectrogram_Output")
+    output_audio_directory = tempfile.gettempdir() # os.path.join(os.getcwd(), "Recorded_audio_Output")
+    # tempfile.gettempdir() is used for make it work for both windows and linux
 
     inf_classifier = InfluenzaClassifier()
 
@@ -184,6 +186,7 @@ def main() -> None:
         elif choice == "2":
             inf_classifier.record_audio(output_audio_directory, "recorded_audio.wav", duration=10, sample_rate=44100, channels=1)
             audio_path = os.path.join(output_audio_directory, "recorded_audio.wav")
+            print(f"saved at: {audio_path}")
         elif choice == "3":
             sys.exit(0)
         else:
