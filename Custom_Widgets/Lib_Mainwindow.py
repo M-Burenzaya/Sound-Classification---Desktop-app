@@ -147,7 +147,10 @@ class TheMainWindow(QMainWindow):
 
         dlg = QMessageBox(self)
         dlg.setWindowTitle("Record...")
-        dlg.setText("Finshed")
+        dlg.setText(
+            "Finshed, saved at \n"
+            f"{file_path_wav_output}",
+        )
         dlg.exec()
 
         self.load_audio_file(file_path_wav_output)
