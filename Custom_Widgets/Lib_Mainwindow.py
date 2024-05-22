@@ -97,7 +97,7 @@ class TheMainWindow(QMainWindow):
     def load_audio_file(self, file_path_to_wav: str) -> None:
         # load {file_path_to_wav} generate image.
         # save generated image into {self.inf_classifier.output_path_spectrogram_img}
-        self.inf_classifier.generate_spectrogram_from_wav_file(file_path_to_wav, "/tmp/")
+        self.inf_classifier.generate_spectrogram_from_wav_file(file_path_to_wav, self.output_directory)
         logging.info("load_audio_file: generate_spectrogram_from_wav_file")
 
         self.ui.l_loaded_file_rate.setNum(self.inf_classifier.sample_rate)
