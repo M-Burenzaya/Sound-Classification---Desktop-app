@@ -130,8 +130,8 @@ class TheMainWindow(QMainWindow):
 
     def callback_pb_start_record(self) -> None:
         dlg = QMessageBox(self)
-        dlg.setWindowTitle("Record...")
-        dlg.setText("Start after pressing OK")
+        dlg.setWindowTitle("Аудио бичлэг")
+        dlg.setText(f"OK-товч дараад {self.ui.sp_audio_rec_duration.value()}-сек бичнэ")
         dlg.exec()
 
         logging.info("callback_pb_start_record: Starting Record")
@@ -146,17 +146,17 @@ class TheMainWindow(QMainWindow):
         logging.info("callback_pb_start_record: Finishing Record")
 
         dlg = QMessageBox(self)
-        dlg.setWindowTitle("Record...")
+        dlg.setWindowTitle("Аудио бичлэг")
         dlg.setText(
-            "Finshed, saved at \n"
-            f"{file_path_wav_output}",
+            "Бичлэг дууслаа \n"
+            f"Хадгалсан файл: {file_path_wav_output}",
         )
         dlg.exec()
 
         self.load_audio_file(file_path_wav_output)
         #self.predict_and_then_update_result_ui() already executed inside of  self.load_audio_file
 
-        self.ui.pb_start_record.setText("Start New Record")
+        #self.ui.pb_start_record.setText("Start New Record")
 
     def predict_and_then_update_result_ui(self) -> None:
         self.pred_label, self.pred_confidence = self.inf_classifier.predict_image(
@@ -176,9 +176,9 @@ class TheMainWindow(QMainWindow):
 
 
         dlg = QMessageBox(self)
-        dlg.setWindowTitle("Result")
+        dlg.setWindowTitle("Үр дүн")
         dlg.setText(
-            f"Prediction Finished Result: {self.pred_label}"
+            f"Үр дүн: {self.pred_label}"
         )
         dlg.exec()
 
@@ -213,7 +213,7 @@ class TheMainWindow(QMainWindow):
 
     def callback_change_output_directory(self) -> None:
         """Changes output file directory"""
-        file: str = QFileDialog.getExistingDirectory(self, "Select Directory")
+        file: str = QFileDialog.getExistingDirectory(self, "Гаралтуудыг хадгалах фолдер зааж өгнө үү")
 
         if file == "":
             logging.info("callback_change_output_directory: CANCEL-ed")
