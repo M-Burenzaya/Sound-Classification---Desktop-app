@@ -139,7 +139,7 @@ class TheMainWindow(QMainWindow):
         file_path_wav_output = self.inf_classifier.record_audio(
             output_directory=self.output_directory,
             output_filename=datetime.now().strftime("%Y%m%d_%H%M%S.wav"),
-            duration=10,
+            duration=self.ui.sp_audio_rec_duration.value(),   #duration=10,
             sample_rate=44100,
             channels=1,
         )
