@@ -101,7 +101,7 @@ class InfluenzaClassifier:
         self.audio, self.sample_rate = librosa.load(audio_path, sr=None, dtype=np.float32)
         self.spectrogram = librosa.feature.melspectrogram(y=self.audio, sr=self.sample_rate)
         self.spectrogram_db = librosa.power_to_db(self.spectrogram, ref=np.max)
-        self.time = np.linspace(start=0, stop=self.audio.shape[0] * self.sample_rate, num=self.audio.shape[0])  # just for Plotting purposes
+        self.time = np.linspace(start=0, stop=self.audio.shape[0] / self.sample_rate, num=self.audio.shape[0])  # just for Plotting purposes
 
         self.freqs = librosa.mel_frequencies(n_mels=self.spectrogram.shape[0], fmin=0, fmax=8000)
         y_min_idx = np.argmin(np.abs(self.freqs - y_min_freq))

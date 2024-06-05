@@ -100,48 +100,6 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
-        self.groupBox_2 = QGroupBox(self.centralwidget)
-        self.groupBox_2.setObjectName("groupBox_2")
-        self.formLayout_2 = QFormLayout(self.groupBox_2)
-        self.formLayout_2.setObjectName("formLayout_2")
-        self.label_2 = QLabel(self.groupBox_2)
-        self.label_2.setObjectName("label_2")
-
-        self.formLayout_2.setWidget(0, QFormLayout.LabelRole, self.label_2)
-
-        self.pb_load_audio_file = QPushButton(self.groupBox_2)
-        self.pb_load_audio_file.setObjectName("pb_load_audio_file")
-
-        self.formLayout_2.setWidget(0, QFormLayout.FieldRole, self.pb_load_audio_file)
-
-        self.label_7 = QLabel(self.groupBox_2)
-        self.label_7.setObjectName("label_7")
-
-        self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.label_7)
-
-        self.l_loaded_file_dur = QLabel(self.groupBox_2)
-        self.l_loaded_file_dur.setObjectName("l_loaded_file_dur")
-
-        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.l_loaded_file_dur)
-
-        self.label_9 = QLabel(self.groupBox_2)
-        self.label_9.setObjectName("label_9")
-
-        self.formLayout_2.setWidget(2, QFormLayout.LabelRole, self.label_9)
-
-        self.l_loaded_file_rate = QLabel(self.groupBox_2)
-        self.l_loaded_file_rate.setObjectName("l_loaded_file_rate")
-
-        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.l_loaded_file_rate)
-
-        self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
-        )
-
-        self.formLayout_2.setItem(3, QFormLayout.FieldRole, self.verticalSpacer_2)
-
-        self.gridLayout.addWidget(self.groupBox_2, 0, 0, 1, 1)
-
         self.groupBox = QGroupBox(self.centralwidget)
         self.groupBox.setObjectName("groupBox")
         self.formLayout_3 = QFormLayout(self.groupBox)
@@ -264,6 +222,48 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.groupBox_3, 0, 2, 2, 1)
 
+        self.groupBox_2 = QGroupBox(self.centralwidget)
+        self.groupBox_2.setObjectName("groupBox_2")
+        self.formLayout_2 = QFormLayout(self.groupBox_2)
+        self.formLayout_2.setObjectName("formLayout_2")
+        self.label_2 = QLabel(self.groupBox_2)
+        self.label_2.setObjectName("label_2")
+
+        self.formLayout_2.setWidget(0, QFormLayout.LabelRole, self.label_2)
+
+        self.pb_load_audio_file = QPushButton(self.groupBox_2)
+        self.pb_load_audio_file.setObjectName("pb_load_audio_file")
+
+        self.formLayout_2.setWidget(0, QFormLayout.FieldRole, self.pb_load_audio_file)
+
+        self.label_7 = QLabel(self.groupBox_2)
+        self.label_7.setObjectName("label_7")
+
+        self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.label_7)
+
+        self.l_loaded_file_dur = QLabel(self.groupBox_2)
+        self.l_loaded_file_dur.setObjectName("l_loaded_file_dur")
+
+        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.l_loaded_file_dur)
+
+        self.label_9 = QLabel(self.groupBox_2)
+        self.label_9.setObjectName("label_9")
+
+        self.formLayout_2.setWidget(2, QFormLayout.LabelRole, self.label_9)
+
+        self.l_loaded_file_rate = QLabel(self.groupBox_2)
+        self.l_loaded_file_rate.setObjectName("l_loaded_file_rate")
+
+        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.l_loaded_file_rate)
+
+        self.verticalSpacer_2 = QSpacerItem(
+            20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
+        )
+
+        self.formLayout_2.setItem(3, QFormLayout.FieldRole, self.verticalSpacer_2)
+
+        self.gridLayout.addWidget(self.groupBox_2, 0, 0, 1, 1)
+
         self.gridLayout.setColumnStretch(1, 100)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
@@ -372,69 +372,139 @@ class Ui_MainWindow(object):
             )
         )
         self.actionChange_Pre_Trained_Model.setText(
-            QCoreApplication.translate("MainWindow", "Change Pre-Trained Model", None)
+            QCoreApplication.translate(
+                "MainWindow",
+                "\u0421\u0443\u0440\u0433\u0430\u0441\u0430\u043d \u043c\u043e\u0434\u0435\u043b\u044b\u043d \u0444\u0430\u0439\u043b \u043e\u0440\u0443\u0443\u043b\u0430\u0445\n"
+                "",
+                None,
+            )
         )
         self.actionChange_Output_Directory.setText(
-            QCoreApplication.translate("MainWindow", "Change Output Directory", None)
+            QCoreApplication.translate(
+                "MainWindow",
+                "\u0413\u0430\u0440\u0430\u043b\u0442\u044b\u043d \u0445\u0430\u0432\u0442\u0430\u0441 \u0441\u043e\u043b\u0438\u0445\n"
+                "",
+                None,
+            )
         )
         self.actionOpen_Output_Directory.setText(
-            QCoreApplication.translate("MainWindow", "Open Output Directory", None)
+            QCoreApplication.translate(
+                "MainWindow",
+                "\u0413\u0430\u0440\u0430\u043b\u0442\u044b\u043d \u0445\u0430\u0432\u0442\u0430\u0441 \u043d\u044d\u044d\u0445\n"
+                "",
+                None,
+            )
+        )
+        self.groupBox.setTitle(
+            QCoreApplication.translate(
+                "MainWindow",
+                "\u041e\u0440\u043e\u043b\u0442 2: \u0411\u0438\u0447\u043b\u044d\u0433 ",
+                None,
+            )
+        )
+        self.label_4.setText(
+            QCoreApplication.translate(
+                "MainWindow",
+                "\u0411\u0438\u0447\u043b\u044d\u0433\u0438\u0439\u043d \u0445\u0443\u0433\u0430\u0446\u0430\u0430 (\u0441\u0435\u043a)",
+                None,
+            )
+        )
+        self.label_3.setText(
+            QCoreApplication.translate(
+                "MainWindow",
+                "\u0411\u0438\u0447\u043b\u044d\u0433\u0438\u0439\u043d \u0442\u04af\u04af\u0432\u044d\u0440\u043b\u044d\u043b\u0442\u0438\u0439\u043d\n"
+                "\u0445\u0443\u0440\u0434 (1/\u0441\u0435\u043a)",
+                None,
+            )
+        )
+        self.label_5.setText("")
+        self.pb_start_record.setText(
+            QCoreApplication.translate(
+                "MainWindow", "\u0411\u0438\u0447\u0438\u0445", None
+            )
+        )
+        self.groupBox_4.setTitle(
+            QCoreApplication.translate(
+                "MainWindow",
+                "\u0410\u0443\u0434\u0438\u043e \u0413\u0440\u0430\u0444\u0438\u043a",
+                None,
+            )
+        )
+        self.pb_play_selected_audio.setText(
+            QCoreApplication.translate(
+                "MainWindow",
+                "\u0410\u0443\u0434\u0438\u043e \u0442\u043e\u0433\u043b\u0443\u0443\u043b\u0430\u0445",
+                None,
+            )
+        )
+        self.groupBox_3.setTitle(
+            QCoreApplication.translate(
+                "MainWindow", "\u04ae\u0440 \u0434\u04af\u043d", None
+            )
+        )
+        self.label_6.setText(
+            QCoreApplication.translate("MainWindow", "\u041e\u043d\u043e\u0448", None)
+        )
+        self.label_result.setText(QCoreApplication.translate("MainWindow", "...", None))
+        self.label.setText(
+            QCoreApplication.translate(
+                "MainWindow",
+                "\u04ae\u0440 \u0434\u04af\u043d\u0433\u0438\u0439\u043d \u043e\u043d\u043e\u043e",
+                None,
+            )
+        )
+        self.label_result_confidence.setText(
+            QCoreApplication.translate("MainWindow", "...", None)
         )
         self.groupBox_2.setTitle(
-            QCoreApplication.translate("MainWindow", "Input 1", None)
+            QCoreApplication.translate(
+                "MainWindow",
+                "\u041e\u0440\u043e\u043b\u0442 1: \u0424\u0430\u0439\u043b",
+                None,
+            )
         )
         self.label_2.setText(
-            QCoreApplication.translate("MainWindow", "Load file ", None)
+            QCoreApplication.translate(
+                "MainWindow",
+                "\u0424\u0430\u0439\u043b \u043e\u0440\u0443\u0443\u043b\u0430\u0445",
+                None,
+            )
         )
         self.pb_load_audio_file.setText(
-            QCoreApplication.translate("MainWindow", "Load File", None)
+            QCoreApplication.translate(
+                "MainWindow",
+                "\u0424\u0430\u0439\u043b \u043e\u0440\u0443\u0443\u043b\u0430\u0445",
+                None,
+            )
         )
         self.label_7.setText(
-            QCoreApplication.translate("MainWindow", "File duration (s)", None)
+            QCoreApplication.translate(
+                "MainWindow",
+                "\u0410\u0443\u0434\u0438\u043e \u0444\u0430\u0439\u043b\u044b\u043d \u0445\u0443\u0433\u0430\u0446\u0430\u0430 (\u0441\u0435\u043a)",
+                None,
+            )
         )
         self.l_loaded_file_dur.setText(
             QCoreApplication.translate("MainWindow", "...", None)
         )
         self.label_9.setText(
-            QCoreApplication.translate("MainWindow", "File Rate (1/s)", None)
+            QCoreApplication.translate(
+                "MainWindow",
+                "\u0410\u0443\u0434\u0438\u043e \u0444\u0430\u0439\u043b\u044b\u043d \u0442\u04af\u04af\u0432\u044d\u0440\u043b\u044d\u043b\u0442\u0438\u0439\u043d\n"
+                " \u0445\u0443\u0440\u0434 (1/\u0441\u0435\u043a)\n"
+                "",
+                None,
+            )
         )
         self.l_loaded_file_rate.setText(
             QCoreApplication.translate("MainWindow", "...", None)
         )
-        self.groupBox.setTitle(
-            QCoreApplication.translate("MainWindow", "Input 2", None)
-        )
-        self.label_4.setText(
-            QCoreApplication.translate("MainWindow", "Record duration (sec)", None)
-        )
-        self.label_3.setText(
-            QCoreApplication.translate("MainWindow", "Record Rate (1/sec)", None)
-        )
-        self.label_5.setText("")
-        self.pb_start_record.setText(
-            QCoreApplication.translate("MainWindow", "Start Record", None)
-        )
-        self.groupBox_4.setTitle(
-            QCoreApplication.translate("MainWindow", "Audio Graph", None)
-        )
-        self.pb_play_selected_audio.setText(
-            QCoreApplication.translate("MainWindow", "\u25b6  Playback", None)
-        )
-        self.groupBox_3.setTitle(
-            QCoreApplication.translate("MainWindow", "Result", None)
-        )
-        self.label_6.setText(QCoreApplication.translate("MainWindow", "Result", None))
-        self.label_result.setText(
-            QCoreApplication.translate("MainWindow", "TextLabel", None)
-        )
-        self.label.setText(
-            QCoreApplication.translate("MainWindow", "Result Confidence", None)
-        )
-        self.label_result_confidence.setText(
-            QCoreApplication.translate("MainWindow", "TextLabel", None)
-        )
         self.menuOptions.setTitle(
-            QCoreApplication.translate("MainWindow", "Options", None)
+            QCoreApplication.translate(
+                "MainWindow",
+                "\u0421\u043e\u043d\u0433\u043e\u043b\u0442\u0443\u0443\u0434",
+                None,
+            )
         )
 
     # retranslateUi
